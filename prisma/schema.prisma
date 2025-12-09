@@ -1,0 +1,64 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider  = "postgresql"
+    url       = env("DATABASE_URL")
+    directUrl = env("DIRECT_URL")
+}
+
+model User {
+    id           String        @id @default(uuid())
+    clerkUserId  String        @unique // clerk user id
+    email        String        @unique
+    name         String?
+    imageUrl     String?
+    budgets      Budget[]
+    createdAt    DateTime      @default(now())
+    updatedAt    DateTime      @updatedAt
+
+    @@map("users")
+}
+
+
+model Budget {
+    id            String    @id @default(uuid())
+    amount        Decimal
+    lastAlertSent DateTime? // Track when the last alert was sent
+    startDate     DateTime?
+    endDate       DateTime?
+    userId        String    @unique
+    user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+
+    @@index([userId])
+    @@map("budgets")
+}
+
+model sensorData {
+    id        String   @id @default(uuid())
+    date      DateTime
+    voltage   Float
+    ampere    Float
+    power     Float
+    energy    Float
+    pf        Float
+    price     Float
+
+    @@map("sensordata")
+}
+
+model sensorData2 {
+    id        String   @id @default(uuid())
+    date      DateTime
+    voltage   Float
+    ampere    Float
+    power     Float
+    energy    Float
+    pf        Float
+    price     Float
+
+    @@map("sensordata2")
+}

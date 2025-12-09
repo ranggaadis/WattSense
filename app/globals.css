@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  :root {
+    /* Light theme with purple accents */
+    --background: 0 0% 100%; /* white */
+    --foreground: 222 47% 11%; /* slate-900 */
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 262 83% 57%; /* violet-600 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 260 100% 97%; /* faint violet bg */
+    --secondary-foreground: 262 83% 37%;
+    --muted: 220 14% 96%; /* slate-100 */
+    --muted-foreground: 215 20% 50%; /* slate-500 */
+    --accent: 255 92% 76%;
+    --accent-foreground: 262 83% 20%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 262 83% 57%; /* violet ring */
+    --chart-1: 262 83% 57%;
+    --chart-2: 199 89% 48%;
+    --chart-3: 158 64% 52%;
+    --chart-4: 23 97% 65%;
+    --chart-5: 316 73% 52%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    /* Dark surfaces + purple accents */
+    --background: 222 47% 7%; /* slate-950-ish */
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%; /* slate-900 */
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 262 83% 67%; /* lighter violet for contrast */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 222 47% 15%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 222 47% 12%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 262 83% 57%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 222 47% 20%;
+    --input: 222 47% 20%;
+    --ring: 262 83% 67%;
+    --chart-1: 262 83% 67%;
+    --chart-2: 199 89% 60%;
+    --chart-3: 158 64% 58%;
+    --chart-4: 23 97% 65%;
+    --chart-5: 316 73% 62%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .gradient {
+    @apply bg-gradient-to-br from-blue-600 to-purple-600;
+  }
+  .gradient-title {
+    @apply gradient font-extrabold tracking-tighter pr-2 pb-2 text-transparent bg-clip-text;
+  }
+  .gradient-purple-band {
+    @apply bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-500;
+  }
+}
+
+.hero-image-wrapper {
+  perspective: 1000px;
+}
+
+.hero-image {
+  /* transform: rotateX(20deg) scale(0.9) translateY(-50); */
+  transform: rotateX(15deg) scale(1);
+  transition: transform 0.5s ease-out;
+  will-change: transform;
+}
+
+.hero-image.scrolled {
+  transform: rotateX(0deg) scale(1) translateY(40px);
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Add this class */
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientMove 3s ease infinite;
+}
