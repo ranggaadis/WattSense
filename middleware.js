@@ -1,22 +1,3 @@
-import { createMiddleware } from "@arcjet/next";
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
-
-// Create base Clerk middleware
-const clerk = clerkMiddleware(async (auth, req) => {
-  const { userId } = await auth();
-
-  if (!userId && isProtectedRoute(req)) {
-    const { redirectToSignIn } = await auth();
-    return redirectToSignIn();
-  }
-
-  return NextResponse.next();
-});
-
-// Chain middlewares - ArcJet runs first, then Clerk
-export default createMiddleware(aj, clerk);
-
 export const config = {
   matcher: [
     // Skip Next.js internals and all static files, unless found in search params
